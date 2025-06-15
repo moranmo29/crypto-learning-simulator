@@ -33,5 +33,14 @@
     "transaction_status": "סטטוס עסקה",
     "pending": "בהמתנה",
     "confirmed": "מאושרת",
-    "transaction_hash": "מזהה עסקה"
+    "transaction_hash": "מזהה עסקה",
+    "transaction_explorer": "חיפוש עסקה בבלוקצ'יין",
+    "transaction_id": "מזהה עסקה",
+    "status": "סטטוס",
+    "from": "כתובת שולח",
+    "to": "כתובת מקבל",
+    "block": "מספר בלוק",
+    "date": "תאריך",
+    "back": "חזור",
+    "view_on_explorer": "צפה בבלוקצ'יין"
 }

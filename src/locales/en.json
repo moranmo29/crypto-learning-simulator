@@ -33,5 +33,14 @@
     "transaction_status": "Transaction Status",
     "pending": "Pending",
     "confirmed": "Confirmed",
-    "transaction_hash": "Transaction Hash"
+    "transaction_hash": "Transaction Hash",
+    "transaction_explorer": "Blockchain Transaction Explorer",
+    "transaction_id": "Transaction ID",
+    "status": "Status",
+    "from": "From",
+    "to": "To",
+    "block": "Block Number",
+    "date": "Date",
+    "back": "Back",
+    "view_on_explorer": "View on Explorer"
 }

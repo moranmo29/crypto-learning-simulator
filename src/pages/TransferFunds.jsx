@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 // קומפוננטת העברת כספים
 // Funds transfer component
 const TransferFunds = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         walletAddress: '',
         coin: 'ETH',
@@ -40,7 +42,8 @@ const TransferFunds = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setTransactionStatus('pending');
-        setTransactionHash(generateTransactionHash());
+        const hash = generateTransactionHash();
+        setTransactionHash(hash);
 
         // סימולציה של אישור העסקה אחרי 3 שניות
         // Simulate transaction confirmation after 3 seconds
@@ -143,6 +146,27 @@ const TransferFunds = () => {
                                 <span className="font-medium">{t('transaction_hash')}: </span>
                                 <span className="font-mono text-sm">{transactionHash}</span>
                             </p>
+                            {transactionStatus === 'confirmed' && (
+                                <button
+                                    onClick={() => navigate(`/explorer/${transactionHash}`)}
+                                    className="mt-4 text-blue-600 hover:text-blue-800 flex items-center"
+                                >
+                                    {t('view_on_explorer')}
+                                    <svg
+                                        className="w-5 h-5 mr-2"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                        />
+                                    </svg>
+                                </button>
+                            )}
                         </div>
                     </div>
                 )}

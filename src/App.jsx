@@ -7,6 +7,7 @@ import SelectPlatform from './pages/SelectPlatform';
 import BinanceDashboard from './pages/BinanceDashboard';
 import MetaMaskWallet from './pages/MetaMaskWallet';
 import TransferFunds from './pages/TransferFunds';
+import TransactionExplorer from './pages/TransactionExplorer';
 
 // Configure future flags for React Router
 const router = {
@@ -29,6 +30,7 @@ function App() {
                         <Route path="/binance" element={<BinanceDashboard />} />
                         <Route path="/metamask" element={<MetaMaskWallet />} />
                         <Route path="/transfer" element={<TransferFunds />} />
+                        <Route path="/explorer/:hash" element={<TransactionExplorer />} />
                     </Routes>
                 </Layout>
             </Router>
