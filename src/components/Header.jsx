@@ -35,7 +35,8 @@ const Header = () => {
         { to: '/explorer/0x123', label: 'explorer', tooltip: 'tooltip_explorer' },
         { to: '/nft-mint', label: 'nft_mint', tooltip: 'tooltip_mint' },
         { to: '/my-nfts', label: 'my_nfts' },
-        { to: '/smart-contract', label: 'smart_contract', tooltip: 'tooltip_deploy' }
+        { to: '/smart-contract', label: 'smart_contract', tooltip: 'tooltip_deploy' },
+        { to: '/binance/security', label: t('nav_2fa'), tooltip: t('nav_2fa') },
     ];
 
     return (

@@ -1,45 +1,60 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-// Platform selection page component
-// קומפוננטת בחירת פלטפורמה
+/**
+ * SelectPlatform Page - בחירת פלטפורמה לסימולציה
+ *
+ * - RTL, עיצוב Tailwind, כרטיסים, ניווט, i18n
+ * - RTL, Tailwind design, cards, navigation, i18n
+ */
+const platforms = [
+    {
+        key: 'binance',
+        desc: 'binance_desc',
+        path: '/binance/register',
+    },
+    {
+        key: 'coinbase',
+        desc: 'coinbase_desc',
+        path: '/coinbase', // דוגמה, אפשר להחליף לנתיב אמיתי בעתיד
+    },
+    {
+        key: 'metamask',
+        desc: 'metamask_desc',
+        path: '/wallet',
+    },
+    {
+        key: 'ledger',
+        desc: 'ledger_desc',
+        path: '/ledger', // דוגמה, אפשר להחליף לנתיב אמיתי בעתיד
+    },
+];
+
 const SelectPlatform = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const handlePlatformSelect = (platform) => {
-        switch (platform) {
-            case 'binance':
-                navigate('/binance');
-                break;
-            case 'metamask':
-                navigate('/metamask');
-                break;
-            default:
-                break;
-        }
-    };
-
     return (
-        <div className="min-h-screen bg-gray-100 p-8">
-            <div className="max-w-2xl mx-auto">
-                <h1 className="text-3xl font-bold mb-8 text-center">{t('selectPlatform')}</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <button
-                        onClick={() => handlePlatformSelect('binance')}
-                        className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+        <div className="min-h-screen bg-gray-50 py-10 px-2 rtl" dir="rtl">
+            {/* Title */}
+            <h1 className="text-3xl font-bold text-center mb-10">{t('select_platform_title')}</h1>
+            {/* Grid of Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                {platforms.map((p) => (
+                    <div
+                        key={p.key}
+                        className="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center hover:shadow-2xl transition-shadow border border-yellow-100"
                     >
-                        <h2 className="text-xl font-semibold mb-2">{t('binance')}</h2>
-                        <p className="text-gray-600">Simulate trading on Binance exchange</p>
-                    </button>
-                    <button
-                        onClick={() => handlePlatformSelect('metamask')}
-                        className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                    >
-                        <h2 className="text-xl font-semibold mb-2">{t('metaMask')}</h2>
-                        <p className="text-gray-600">Learn about MetaMask wallet</p>
-                    </button>
-                </div>
+                        <div className="text-2xl font-bold mb-2">{t(p.key)}</div>
+                        <div className="text-gray-500 mb-6 text-center">{t(p.desc)}</div>
+                        <button
+                            className="bg-[#fcd535] text-black font-bold py-2 px-6 rounded-lg shadow hover:bg-yellow-400 transition-colors mt-auto"
+                            onClick={() => navigate(p.path)}
+                        >
+                            {t('start_simulation')}
+                        </button>
+                    </div>
+                ))}
             </div>
         </div>
     );

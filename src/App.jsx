@@ -12,6 +12,11 @@ import NftMint from './pages/NftMint';
 import MyNfts from './pages/MyNfts';
 import SmartContract from './pages/SmartContract';
 import About from './pages/About';
+import Register from './pages/binance/Register';
+import VerifyEmail from './pages/binance/VerifyEmail';
+import SecuritySetup from './pages/binance/SecuritySetup';
+import KYC from './pages/binance/KYC';
+import Dashboard from './pages/binance/Dashboard';
 
 // Configure future flags for React Router
 const router = {
@@ -40,6 +45,11 @@ function App() {
                         <Route path="/my-nfts" element={<MyNfts />} />
                         <Route path="/smart-contract" element={<SmartContract />} />
                         <Route path="/about" element={<About />} />
+                        <Route path="/binance/register" element={<Register />} />
+                        <Route path="/binance/verify" element={<VerifyEmail />} />
+                        <Route path="/binance/security" element={<SecuritySetup />} />
+                        <Route path="/binance/kyc" element={<KYC />} />
+                        <Route path="/binance/dashboard" element={<Dashboard />} />
                     </Routes>
                 </div>
             </Router>
