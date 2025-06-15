@@ -57,5 +57,11 @@
     "wallet": "Wallet",
     "transfer": "Transfer",
     "explorer": "Explorer",
-    "nft_mint": "Mint NFT"
+    "nft_mint": "Mint NFT",
+    "smart_contract": "Smart Contract",
+    "deploy_contract": "Deploy Contract",
+    "contract_code": "Contract Code",
+    "contract_address": "Contract Address",
+    "deployed_successfully": "Contract Deployed Successfully",
+    "view_on_blockchain": "View on Blockchain"
 }

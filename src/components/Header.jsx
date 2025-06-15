@@ -50,6 +50,9 @@ const Header = () => {
                         <Link to="/my-nfts" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">
                             {t('my_nfts')}
                         </Link>
+                        <Link to="/smart-contract" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">
+                            {t('smart_contract')}
+                        </Link>
                     </div>
 
                     {/* Language Switcher - מחליף שפה */}

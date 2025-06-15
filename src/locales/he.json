@@ -57,5 +57,11 @@
     "wallet": "ארנק",
     "transfer": "העברה",
     "explorer": "חיפוש עסקה",
-    "nft_mint": "יצירת NFT"
+    "nft_mint": "יצירת NFT",
+    "smart_contract": "חוזה חכם",
+    "deploy_contract": "פרוס חוזה",
+    "contract_code": "קוד חוזה",
+    "contract_address": "כתובת החוזה",
+    "deployed_successfully": "החוזה נפרס בהצלחה",
+    "view_on_blockchain": "צפה בחוזה בבלוקצ'יין"
 }
