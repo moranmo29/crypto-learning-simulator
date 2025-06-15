@@ -42,5 +42,15 @@
     "block": "מספר בלוק",
     "date": "תאריך",
     "back": "חזור",
-    "view_on_explorer": "צפה בבלוקצ'יין"
+    "view_on_explorer": "צפה בבלוקצ'יין",
+    "mint_nft": "צור NFT חדש",
+    "nft_name": "שם ה-NFT",
+    "nft_description": "תיאור",
+    "upload_image": "העלה תמונה",
+    "create_nft": "צור NFT",
+    "my_nfts": "ה-NFT שלי",
+    "token_id": "מזהה טוקן",
+    "nft_created": "ה-NFT נוצר בהצלחה!",
+    "view_my_nfts": "צפה ב-NFT שלי",
+    "no_nfts": "אין לך NFTs עדיין"
 }
