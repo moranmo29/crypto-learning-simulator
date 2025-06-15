@@ -2,8 +2,15 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-// קומפוננטת העברת כספים
-// Funds transfer component
+/**
+ * TransferFunds Component
+ * 
+ * Simulates transferring funds between wallets with transaction status updates.
+ * 
+ * קומפוננט העברת כספים
+ * 
+ * מדמה העברת כספים בין ארנקים עם עדכוני סטטוס עסקה.
+ */
 const TransferFunds = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -64,15 +71,21 @@ const TransferFunds = () => {
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                             {t('wallet_address')}
                         </label>
-                        <input
-                            type="text"
-                            name="walletAddress"
-                            value={formData.walletAddress}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                            placeholder="0x..."
-                            required
-                        />
+                        <div className="relative group">
+                            <input
+                                type="text"
+                                name="walletAddress"
+                                value={formData.walletAddress}
+                                onChange={handleInputChange}
+                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                                placeholder="0x..."
+                                required
+                            />
+                            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                                {t('tooltip_wallet')}
+                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                            </div>
+                        </div>
                     </div>
 
                     {/* בחירת מטבע */}
@@ -121,13 +134,20 @@ const TransferFunds = () => {
 
                     {/* כפתור שליחה */}
                     {/* Send Button */}
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-                        disabled={transactionStatus === 'pending'}
-                    >
-                        {t('send')}
-                    </button>
+                    <div className="relative group">
+                        <button
+                            type="submit"
+                            className={`w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors ${transactionStatus === 'pending' ? 'cursor-not-allowed' : ''
+                                }`}
+                            disabled={transactionStatus === 'pending'}
+                        >
+                            {transactionStatus === 'pending' ? t('processing') : t('send')}
+                        </button>
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                            {t('tooltip_send')}
+                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                        </div>
+                    </div>
                 </form>
 
                 {/* סטטוס העסקה */}

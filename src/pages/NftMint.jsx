@@ -2,6 +2,15 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * NftMint Component
+ * 
+ * Simulates minting a new NFT with name, description, and image upload.
+ * 
+ * קומפוננט יצירת NFT
+ * 
+ * מדמה יצירת NFT חדש עם שם, תיאור והעלאת תמונה.
+ */
 const NftMint = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -11,6 +20,7 @@ const NftMint = () => {
         image: null
     });
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [isMinting, setIsMinting] = useState(false);
 
     // Handle form input changes
     const handleChange = (e) => {
@@ -29,7 +39,11 @@ const NftMint = () => {
                 ...prev,
                 image: file
             }));
-            setPreviewUrl(URL.createObjectURL(file));
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewUrl(reader.result);
+            };
+            reader.readAsDataURL(file);
         }
     };
 
@@ -43,8 +57,9 @@ const NftMint = () => {
     };
 
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsMinting(true);
 
         // Create NFT object
         const newNft = {
@@ -62,8 +77,11 @@ const NftMint = () => {
         // Add new NFT and save to localStorage
         localStorage.setItem('nfts', JSON.stringify([...existingNfts, newNft]));
 
-        // Navigate to My NFTs page
-        navigate('/my-nfts');
+        // Simulate minting delay
+        setTimeout(() => {
+            setIsMinting(false);
+            navigate('/my-nfts');
+        }, 2000);
     };
 
     return (
@@ -114,24 +132,18 @@ const NftMint = () => {
                             <label className="block text-sm font-medium text-gray-700 text-right">
                                 {t('upload_image')}
                             </label>
-                            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                <div className="space-y-1 text-center">
-                                    <div className="flex text-sm text-gray-600">
-                                        <label
-                                            htmlFor="image"
-                                            className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
-                                        >
-                                            <span>{t('upload_image')}</span>
-                                            <input
-                                                id="image"
-                                                name="image"
-                                                type="file"
-                                                accept="image/*"
-                                                onChange={handleImageChange}
-                                                className="sr-only"
-                                            />
-                                        </label>
-                                    </div>
+                            <div className="relative group">
+                                <input
+                                    id="image"
+                                    name="image"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                    className="sr-only"
+                                />
+                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                                    {t('tooltip_mint')}
+                                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
                                 </div>
                             </div>
                         </div>
@@ -148,13 +160,19 @@ const NftMint = () => {
                         )}
 
                         {/* Submit Button */}
-                        <div className="flex justify-end">
+                        <div className="relative group">
                             <button
                                 type="submit"
-                                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                disabled={isMinting}
+                                className={`w-full py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${isMinting ? 'cursor-not-allowed' : ''
+                                    }`}
                             >
-                                {t('create_nft')}
+                                {isMinting ? t('minting') : t('create_nft')}
                             </button>
+                            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                                {t('tooltip_mint')}
+                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                            </div>
                         </div>
                     </form>
                 </div>

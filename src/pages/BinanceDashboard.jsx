@@ -73,6 +73,7 @@ const BinanceDashboard = () => {
     const [balance, setBalance] = useState(10000); // Initial balance in ILS
     const [selectedCoin, setSelectedCoin] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [amount, setAmount] = useState('');
 
     // Format price in ILS
     // עיצוב מחיר בשקלים
@@ -92,19 +93,20 @@ const BinanceDashboard = () => {
 
     // Handle buy button click
     // טיפול בלחיצה על כפתור קנייה
-    const handleBuyClick = (coin) => {
+    const handleBuy = (coin) => {
         setSelectedCoin(coin);
         setIsModalOpen(true);
     };
 
     // Handle purchase confirmation
     // טיפול באישור קנייה
-    const handleConfirmPurchase = () => {
-        if (balance >= 500) {
-            setBalance(prevBalance => prevBalance - 500);
-        }
+    const handlePurchase = (e) => {
+        e.preventDefault();
+        // Simulate purchase
+        // סימולציה של קנייה
+        alert(t('purchase_successful'));
         setIsModalOpen(false);
-        setSelectedCoin(null);
+        setAmount('');
     };
 
     return (
@@ -125,58 +127,83 @@ const BinanceDashboard = () => {
             {/* Crypto Table */}
             {/* טבלת מטבעות */}
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <table className="min-w-full">
-                    <thead className="bg-gray-50">
-                        <tr>
-                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                {t('coin')}
-                            </th>
-                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                {t('price')}
-                            </th>
-                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                {t('change')}
-                            </th>
-                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                {t('action')}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                        {cryptoData.map((coin) => (
-                            <tr key={coin.id} className="hover:bg-gray-50">
-                                <td className="px-6 py-4 whitespace-nowrap text-right">
-                                    <div className="text-sm font-medium text-gray-900">{coin.symbol}</div>
-                                    <div className="text-sm text-gray-500">{coin.name}</div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-right">
-                                    <div className="text-sm text-gray-900">{formatPrice(coin.price)}</div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-right">
-                                    {formatChange(coin.change)}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-right">
-                                    <button
-                                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
-                                        onClick={() => handleBuyClick(coin)}
-                                    >
-                                        {t('buy')}
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <div className="grid grid-cols-4 gap-4 p-4 bg-gray-700 text-sm font-medium">
+                    <div>{t('coin')}</div>
+                    <div>{t('price')}</div>
+                    <div>{t('change_24h')}</div>
+                    <div>{t('action')}</div>
+                </div>
+
+                {cryptoData.map((coin) => (
+                    <div key={coin.id} className="grid grid-cols-4 gap-4 p-4 border-t border-gray-700">
+                        <div className="font-medium">{coin.name} ({coin.symbol})</div>
+                        <div>${coin.price.toLocaleString()}</div>
+                        <div className={coin.change >= 0 ? 'text-green-500' : 'text-red-500'}>
+                            {coin.change >= 0 ? '+' : ''}{coin.change}%
+                        </div>
+                        <div className="relative group">
+                            <button
+                                onClick={() => handleBuy(coin)}
+                                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+                            >
+                                {t('buy')}
+                            </button>
+                            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                                {t('tooltip_buy')}
+                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
 
             {/* Purchase Modal */}
             {/* חלון קנייה */}
-            <PurchaseModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onConfirm={handleConfirmPurchase}
-                coinSymbol={selectedCoin?.symbol}
-            />
+            {isModalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+                    <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full">
+                        <h2 className="text-xl font-bold mb-4">
+                            {t('buy')} {selectedCoin?.name}
+                        </h2>
+                        <form onSubmit={handlePurchase}>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium mb-2">
+                                    {t('amount')}
+                                </label>
+                                <input
+                                    type="number"
+                                    value={amount}
+                                    onChange={(e) => setAmount(e.target.value)}
+                                    className="w-full p-2 border rounded bg-gray-700 text-white"
+                                    placeholder="0.0"
+                                    required
+                                />
+                            </div>
+                            <div className="flex justify-end space-x-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="px-4 py-2 text-gray-300 hover:text-white"
+                                >
+                                    {t('cancel')}
+                                </button>
+                                <div className="relative group">
+                                    <button
+                                        type="submit"
+                                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+                                    >
+                                        {t('confirm')}
+                                    </button>
+                                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                                        {t('tooltip_buy')}
+                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

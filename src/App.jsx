@@ -11,6 +11,7 @@ import TransactionExplorer from './pages/TransactionExplorer';
 import NftMint from './pages/NftMint';
 import MyNfts from './pages/MyNfts';
 import SmartContract from './pages/SmartContract';
+import About from './pages/About';
 
 // Configure future flags for React Router
 const router = {
@@ -38,6 +39,7 @@ function App() {
                         <Route path="/nft-mint" element={<NftMint />} />
                         <Route path="/my-nfts" element={<MyNfts />} />
                         <Route path="/smart-contract" element={<SmartContract />} />
+                        <Route path="/about" element={<About />} />
                     </Routes>
                 </div>
             </Router>
