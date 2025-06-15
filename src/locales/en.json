@@ -34,7 +34,7 @@
     "pending": "Pending",
     "confirmed": "Confirmed",
     "transaction_hash": "Transaction Hash",
-    "transaction_explorer": "Blockchain Transaction Explorer",
+    "transaction_explorer": "Transaction Explorer",
     "transaction_id": "Transaction ID",
     "status": "Status",
     "from": "From",
@@ -43,7 +43,7 @@
     "date": "Date",
     "back": "Back",
     "view_on_explorer": "View on Explorer",
-    "mint_nft": "Create New NFT",
+    "mint_nft": "Create NFT",
     "nft_name": "NFT Name",
     "nft_description": "Description",
     "upload_image": "Upload Image",
@@ -52,5 +52,10 @@
     "token_id": "Token ID",
     "nft_created": "NFT Created Successfully!",
     "view_my_nfts": "View My NFTs",
-    "no_nfts": "You don't have any NFTs yet"
+    "no_nfts": "You don't have any NFTs yet",
+    "home": "Home",
+    "wallet": "Wallet",
+    "transfer": "Transfer",
+    "explorer": "Explorer",
+    "nft_mint": "Mint NFT"
 }

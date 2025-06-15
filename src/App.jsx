@@ -30,11 +30,11 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/select-platform" element={<SelectPlatform />} />
-                        <Route path="/binance" element={<BinanceDashboard />} />
-                        <Route path="/metamask" element={<MetaMaskWallet />} />
+                        <Route path="/dashboard" element={<BinanceDashboard />} />
+                        <Route path="/wallet" element={<MetaMaskWallet />} />
                         <Route path="/transfer" element={<TransferFunds />} />
                         <Route path="/explorer/:hash" element={<TransactionExplorer />} />
-                        <Route path="/mint-nft" element={<NftMint />} />
+                        <Route path="/nft-mint" element={<NftMint />} />
                         <Route path="/my-nfts" element={<MyNfts />} />
                     </Routes>
                 </div>
